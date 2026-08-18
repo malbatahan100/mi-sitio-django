@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Mi Lista de Tareas en Django</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f4f4f4; }
+        h1 { color: #333; }
+        ul { list-style: none; padding: 0; }
+        li { background: white; margin: 10px 0; padding: 15px; border-left: 5px solid #264653; border-radius: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .completada { text-decoration: line-through; color: #888; border-left-color: #2a9d8f; }
+    </style>
+</head>
+<body>
+    <h1>Mis Tareas Pendientes</h1>
+      <ul>
+        {% for tarea in tareas %}
+            <li class="{% if tarea.completada %}completada{% endif %}">
+                <strong>{{ tarea.titulo }}</strong>
+                - {% if tarea.completada %}✅ Completada{% else %}⏳ Pendiente{% endif %}
+
+                <!-- Este es tu nuevo botón interactivo -->
+                <a href="{% url 'completar_tarea' tarea.id %}" style="margin-left: 20px; text-decoration: none; color: #2a9d8f; font-weight: bold;">
+                    [ Cambiar Estado ]
+                </a>
+            </li>
+        {% empty %}
+            <li>¡No hay tareas registradas todavía!</li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>

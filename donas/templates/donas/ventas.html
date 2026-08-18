@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Control de Ventas - Donas</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #fcf6bd; color: #333; }
+        .contenedor { max-width: 600px; margin: auto; background: white; padding: 25px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #d4a373; }
+        .campo { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        select, input { width: 100%; padding: 10px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+        button { width: 100%; padding: 12px; background-color: #e9c46a; border: none; border-radius: 4px; color: white; font-size: 16px; font-weight: bold; cursor: pointer; }
+        button:hover { background-color: #f4a261; }
+        ul { list-style: none; padding: 0; margin-top: 25px; }
+        li { background: #f8f9fa; padding: 12px; margin-bottom: 8px; border-left: 5px solid #e76f51; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <div class="contenedor">
+        <h1>🍩 Registro de Ventas - Donas ñorrrrrrrrrrr chivito</h1>
+
+        <!-- Formulario para ingresar datos -->
+        <form method="POST">
+            {% csrf_token %}
+            <div class="campo">
+                <label for="sabor">Sabor de la Dona:</label>
+                <select name="sabor" id="sabor" required>
+                    {% for codigo, nombre in sabores %}
+                        <option value="{{ codigo }}">{{ nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="campo">
+                <label for="cantidad">Cantidad vendida:</label>
+                <input type="number" name="cantidad" id="cantidad" min="1" value="1" required>
+            </div>
+
+            <div class="campo">
+                <label for="precio_total">Precio Total ($):</label>
+                <input type="number" name="precio_total" id="precio_total" step="0.01" placeholder="0.00" required>
+            </div>
+
+            <button type="submit">Registrar Venta</button>
+        </form>
+
+        <h2>Historial de Ventas</h2>
+        <ul>
+            {% for venta in ventas %}
+                <li>{{ venta }}</li>
+            {% empty %}
+                <li>No se han registrado ventas hoy.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
