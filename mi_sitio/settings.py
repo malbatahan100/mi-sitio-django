@@ -81,11 +81,10 @@ WSGI_APPLICATION = 'mi_sitio.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://postgres.huyhxnoewqvyvltzyxlg:Malbatahan33*@aws-0-us-west-2.pooler.supabase.com:6543/postgres',
+        default=os.environ.get('DATABASE_URL'),
         conn_max_age=600
     )
 }
-
 
 
 # Password validation
